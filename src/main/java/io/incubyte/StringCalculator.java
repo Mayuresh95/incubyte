@@ -1,6 +1,7 @@
 package io.incubyte;
 
 public class StringCalculator {
+    final String DECLARE_DELIMITER = "//";
 
     int add(String numbers) throws StringCalculatorException {
         int result = 0;
@@ -9,7 +10,17 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] literals = numbers.split("[\\n,;]+");
+        StringBuilder regex = new StringBuilder("[\\n,");
+        String[] literals;
+
+        if (numbers.startsWith(DECLARE_DELIMITER)) {
+            String[] tempArray = numbers.split("\\n", 2);
+            regex.append(tempArray[0].charAt(2));
+            numbers = tempArray[1];
+        }
+
+        regex.append("]+");
+        literals = numbers.split(regex.toString());
 
         for (String literal : literals) {
             result = result + Integer.parseInt(literal.trim());

@@ -38,4 +38,13 @@ class StringCalculatorTest {
     void testAddNewline() throws StringCalculatorException {
         assertEquals(11, stringCalculator.add("1\n2,3\n5"));
     }
+
+    @Test
+    @DisplayName("Test StringCalculator.add() with custom delimiter")
+    void testAddCustomDelimiter() throws StringCalculatorException {
+        assertAll(
+                () -> assertEquals(16, stringCalculator.add("//;\n2,3\n5;3;3")),
+                () -> assertEquals(16, stringCalculator.add("2,3\n5,3,3"))
+        );
+    }
 }
