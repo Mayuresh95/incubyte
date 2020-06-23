@@ -28,7 +28,7 @@ public class StringCalculator {
         List<Integer> negativeNumbers = new ArrayList<>();
         for (String literal : literals) {
             Integer number = Integer.parseInt(literal.trim());
-            result = result + number;
+            result = (number > 1000) ? result : result + number;
 
             if (number < 0) {
                 negativeNumbers.add(number);

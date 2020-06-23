@@ -72,4 +72,10 @@ class StringCalculatorTest {
 
         }
     }
+
+    @Test
+    @DisplayName("Test StringCalculator.add() with number > 1000")
+    void testAddNumHigher1000() throws StringCalculatorException {
+        assertEquals(11, stringCalculator.add("2,3\n1004\n3\n3,2333"));
+    }
 }
