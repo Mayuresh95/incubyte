@@ -1,5 +1,8 @@
 package io.incubyte;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StringCalculator {
     final String DECLARE_DELIMITER = "//";
 
@@ -22,8 +25,18 @@ public class StringCalculator {
         regex.append("]+");
         literals = numbers.split(regex.toString());
 
+        List<Integer> negativeNumbers = new ArrayList<>();
         for (String literal : literals) {
-            result = result + Integer.parseInt(literal.trim());
+            Integer number = Integer.parseInt(literal.trim());
+            result = result + number;
+
+            if (number < 0) {
+                negativeNumbers.add(number);
+            }
+        }
+
+        if (negativeNumbers.size() > 0) {
+            throw new StringCalculatorException("Negatives not allowed - "+ negativeNumbers);
         }
 
         return result;
