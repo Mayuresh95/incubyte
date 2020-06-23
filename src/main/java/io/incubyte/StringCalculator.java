@@ -9,7 +9,7 @@ public class StringCalculator {
             return 0;
         }
 
-        String[] literals = numbers.split(",");
+        String[] literals = numbers.split("[\\n,;]+");
 
         for (String literal : literals) {
             result = result + Integer.parseInt(literal.trim());

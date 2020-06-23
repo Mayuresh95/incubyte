@@ -32,4 +32,12 @@ class StringCalculatorTest {
                 () -> assertEquals(5, stringCalculator.add("2, 3"))
         );
     }
+
+    @Test
+    @DisplayName("Test StringCalculator.add() with '\n' as a delimiter")
+    void testAddNewline() {
+        assertAll(
+                () -> assertEquals(11, stringCalculator.add("1\n2,3\n5"))
+        );
+    }
 }
