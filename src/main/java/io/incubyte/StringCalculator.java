@@ -10,9 +10,6 @@ public class StringCalculator {
         }
 
         String[] literals = numbers.split(",");
-        if (literals.length > 2) {
-            throw new StringCalculatorException("Max argument length 2 is allowed.");
-        }
 
         for (String literal : literals) {
             result = result + Integer.parseInt(literal.trim());

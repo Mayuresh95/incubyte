@@ -24,10 +24,10 @@ class StringCalculatorTest {
 
 
     @Test
-    @DisplayName("Test StringCalculator.add() with max 2 argument length")
+    @DisplayName("Test StringCalculator.add() with no limit to argument length")
     void testAddArgumentLength() {
         assertAll(
-                () -> assertThrows(StringCalculatorException.class, () -> stringCalculator.add("1,2,3")),
+                () -> assertEquals(11, stringCalculator.add("1,2,3,5")),
                 () -> assertEquals(1, stringCalculator.add("1")),
                 () -> assertEquals(5, stringCalculator.add("2, 3"))
         );
