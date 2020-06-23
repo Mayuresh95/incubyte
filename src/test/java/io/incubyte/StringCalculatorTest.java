@@ -17,6 +17,19 @@ class StringCalculatorTest {
     @Test
     @DisplayName("Test StringCalculator.add() with empty input")
     void testAddEmpty() {
-        assertEquals(0, stringCalculator.add(""), "Empty inputs should return 0 always");
+        assertAll(
+                () -> assertEquals(0, stringCalculator.add(""), "Empty inputs should return 0 always"),
+                () -> assertEquals(0, stringCalculator.add(null), "Empty inputs should return 0 always"));
+    }
+
+
+    @Test
+    @DisplayName("Test StringCalculator.add() with max 2 argument length")
+    void testAddArgumentLength() {
+        assertAll(
+                () -> assertThrows(StringCalculatorException.class, () -> stringCalculator.add("1,2,3")),
+                () -> assertEquals(1, stringCalculator.add("1")),
+                () -> assertEquals(5, stringCalculator.add("2, 3"))
+        );
     }
 }
