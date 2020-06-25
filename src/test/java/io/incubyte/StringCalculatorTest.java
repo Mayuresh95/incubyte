@@ -78,4 +78,13 @@ class StringCalculatorTest {
     void testAddNumHigher1000() throws StringCalculatorException {
         assertEquals(11, stringCalculator.add("2,3\n1004\n3\n3,2333"));
     }
+
+    @Test
+    @DisplayName("Test StringCalculator.add() delimiter of any length")
+    void testAddLengthDelimiter() throws StringCalculatorException {
+        assertAll(
+                () -> assertEquals(11, stringCalculator.add("//[++]\n2,3\n1004++3++3,2333")),
+                () -> assertEquals(11, stringCalculator.add("//[XYZ]\n2,3\n1004XYZ3XYZ3,2333"))
+        );
+    }
 }

@@ -1,6 +1,7 @@
 package io.incubyte;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class StringCalculator {
@@ -13,16 +14,28 @@ public class StringCalculator {
             return 0;
         }
 
-        StringBuilder regex = new StringBuilder("[\\n,");
+        StringBuilder regex = new StringBuilder("(\\n|,");
         String[] literals;
 
         if (numbers.startsWith(DECLARE_DELIMITER)) {
             String[] tempArray = numbers.split("\\n", 2);
-            regex.append(tempArray[0].charAt(2));
+
+            String customDelimiter = tempArray[0].substring(2).trim();
+            if (customDelimiter.length() > 2 && customDelimiter.startsWith("[") && customDelimiter.endsWith("]")) {
+                customDelimiter = customDelimiter.substring(1, customDelimiter.length() - 1);
+            } else {
+                customDelimiter = String.valueOf(tempArray[0].charAt(2));
+            }
+
+            regex.append("|");
+            if (isSpecialCharacter(customDelimiter)) {
+                regex.append("\\");
+            }
+            regex.append(customDelimiter);
             numbers = tempArray[1];
         }
 
-        regex.append("]+");
+        regex.append(")+");
         literals = numbers.split(regex.toString());
 
         List<Integer> negativeNumbers = new ArrayList<>();
@@ -40,5 +53,16 @@ public class StringCalculator {
         }
 
         return result;
+    }
+
+    private boolean isSpecialCharacter(String customDelimiter) {
+        List<String> list = Arrays.asList(".", "\\", "+", "*", "?", "[", "^", "]", "$", "(", ")", "{", "}", "=", "!", "<", ">", "|", ":", "-");
+
+        for (String specialChar : list) {
+            if (customDelimiter.startsWith(specialChar)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
