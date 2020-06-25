@@ -94,7 +94,10 @@ class StringCalculatorTest {
 
     @Test
     @DisplayName("Test StringCalculator.add() delimiter of any length")
-    void testAddMultipleDelimiters() throws StringCalculatorException {
-        assertEquals(25, stringCalculator.add("//[+++][kkkkk][ww]\n2,3\n1004+++3kkkkk3,2333ww5ww4+++5"));
+    void testAddMultipleDelimiters() {
+        assertAll(
+                () -> assertEquals(25, stringCalculator.add("//[+++][kkkkk][ww]\n2,3\n1004+++3kkkkk3,2333ww5ww4+++5")),
+                () -> assertEquals(25, stringCalculator.add("//[.][k][w]\n2,3\n1004.3k3,2333w5w4.5"))
+        );
     }
 }
