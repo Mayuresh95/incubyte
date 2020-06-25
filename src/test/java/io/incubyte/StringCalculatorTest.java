@@ -4,6 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StringCalculatorTest {
@@ -81,10 +84,17 @@ class StringCalculatorTest {
 
     @Test
     @DisplayName("Test StringCalculator.add() delimiter of any length")
-    void testAddLengthDelimiter() throws StringCalculatorException {
+    void testAddLengthDelimiter() {
         assertAll(
                 () -> assertEquals(11, stringCalculator.add("//[++]\n2,3\n1004++3++3,2333")),
                 () -> assertEquals(11, stringCalculator.add("//[XYZ]\n2,3\n1004XYZ3XYZ3,2333"))
         );
+    }
+
+
+    @Test
+    @DisplayName("Test StringCalculator.add() delimiter of any length")
+    void testAddMultipleDelimiters() throws StringCalculatorException {
+        assertEquals(25, stringCalculator.add("//[+++][kkkkk][ww]\n2,3\n1004+++3kkkkk3,2333ww5ww4+++5"));
     }
 }
